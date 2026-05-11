@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 //DB Connection
-
+dotenv.config();
 connectDB();
 
 //api endpoints

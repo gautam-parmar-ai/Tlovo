@@ -3,14 +3,14 @@ import { v2 as cloudinary } from "cloudinary";
 
 // add food item
 const addFood = async (req, res) => {
-  const image_url = req.file.path; // ← Cloudinary returns a URL not a filename
+  const image_url = req.file.path;
 
   const food = new foodModel({
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
-    image: image_url, // ← store full URL now
+    image: image_url,
   });
   try {
     await food.save();
@@ -36,7 +36,7 @@ const listFood = async (req, res) => {
 const removeFood = async (req, res) => {
   try {
     const food = await foodModel.findById(req.body.id);
-    // Delete from Cloudinary using the public_id
+
     const publicId = food.image.split("/").pop().split(".")[0];
     await cloudinary.uploader.destroy(`food_images/${publicId}`);
     await foodModel.findByIdAndDelete(req.body.id);
