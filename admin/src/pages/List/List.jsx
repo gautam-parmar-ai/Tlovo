@@ -1,3 +1,10 @@
+import React from "react";
+import "./List.css";
+import { assets } from "../../assets/assets";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 const List = ({ url }) => {
   const [list, setList] = useState([]);
 
