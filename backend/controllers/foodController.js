@@ -3,17 +3,21 @@ import { v2 as cloudinary } from "cloudinary";
 
 // add food item
 const addFood = async (req, res) => {
-  const image_url = req.file.path;
-
-  const food = new foodModel({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    image: result.secure_url,
-  });
   try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "food_images",
+    });
+
+    const food = new foodModel({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      image: result.secure_url,
+    });
+
     await food.save();
+
     res.json({ success: true, message: "Food Added" });
   } catch (error) {
     console.log(error);
