@@ -7,6 +7,7 @@ import "dotenv/config";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 //app config
+dotenv.config();
 const app = express();
 const port = 4000;
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 //DB Connection
-dotenv.config();
+
 connectDB();
 
 //api endpoints
