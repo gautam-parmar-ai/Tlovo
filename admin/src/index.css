@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+:root {
+  /* Define the color variable */
+  --primary-color: #00a082;
+  --secondary-color: #ffc244;
+}
+
+* {
+  font-family: "Outfit", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--primary-color);
+}
+.app-content {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cursor {
+  cursor: pointer;
+}
