@@ -1,13 +1,7 @@
-import React from "react";
-import "./List.css";
-import { useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
-
 const List = ({ url }) => {
   const [list, setList] = useState([]);
-  const fetchList = async (params) => {
+
+  const fetchList = async () => {
     const response = await axios.get(`${url}/api/food/list`);
     if (response.data.success) {
       setList(response.data.data);
@@ -18,9 +12,10 @@ const List = ({ url }) => {
 
   const removeFood = async (foodId) => {
     const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
-    await fetchList();
+
     if (response.data.success) {
       toast.success(response.data.message);
+      fetchList(); // refresh after success
     } else {
       toast.error("Error");
     }
@@ -32,7 +27,8 @@ const List = ({ url }) => {
 
   return (
     <div className="list add flex-col">
-      <p>ALl Food List</p>
+      <p>ALL Food List</p>
+
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>
@@ -41,22 +37,19 @@ const List = ({ url }) => {
           <b>Price</b>
           <b>Action</b>
         </div>
-        {list.map((item, index) => {
-          return (
-            <div key={index} className="list-table-format">
-              <img className="food-item-image" src={image} />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>€ {item.price}</p>
-              <p onClick={() => removeFood(item._id)} className="cursor">
-                x
-              </p>
-            </div>
-          );
-        })}
+
+        {list.map((item, index) => (
+          <div key={index} className="list-table-format">
+            <img className="food-item-image" src={item.image} />
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>€ {item.price}</p>
+            <p onClick={() => removeFood(item._id)} className="cursor">
+              x
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-export default List;
