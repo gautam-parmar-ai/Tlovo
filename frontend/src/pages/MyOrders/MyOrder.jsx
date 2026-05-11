@@ -10,12 +10,16 @@ const MyOrder = () => {
   const { url, token } = useContext(StoreContext);
 
   const fetchOrder = async () => {
-    const response = await axios.post(
-      url + "/api/order/userorders",
-      {},
-      { headers: { token } },
-    );
-    setData(response.data.data);
+    try {
+      const response = await axios.post(
+        url + "/api/order/userorders",
+        {},
+        { headers: { token } },
+      );
+      setData(response.data.data);
+    } catch (err) {
+      console.error("fetchOrder failed", err);
+    }
   };
 
   useEffect(() => {
@@ -47,7 +51,7 @@ const MyOrder = () => {
                 <span>&#x25cf;</span>
                 <b> {order.status}</b>
               </p>
-              <button onClick={fetchOrder()}>Track Order</button>
+              <button onClick={fetchOrder}>Track Order</button>
             </div>
           );
         })}
