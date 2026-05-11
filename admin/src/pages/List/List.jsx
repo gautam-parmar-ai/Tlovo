@@ -53,3 +53,5 @@ const List = ({ url }) => {
     </div>
   );
 };
+
+export default List;
